@@ -1,42 +1,38 @@
-/*****Code By Cheems*****/
+/**
+ *
+ *Filename: 1031.cpp
+ *created in 2023/01/07 00:41:59
+ *By tabbleman
+ *
+ */
 #include <bits/stdc++.h>
-/**********-_-***********/
 using namespace std;
-const int N = 10010, INF = 0x3f3f3f3f;
-typedef long long ll;
-typedef pair<int, int> PII;
 
-/*variables*/
-string s;
 
-/*functions*/
-void sol(){
-	char buffer[N][N];
-	int radius = (s.size() - 2) / 3;
-	int len = s.size();
-	for(int i = 0; i < len; i ++){
-		if(i <= radius ){
-			buffer[i][0] = s[i];
-			
-		}
-		else if (i <= radius * 2 + 1){
-			buffer[radius][i - radius - 1] = s[i];
-		}
-		else {
-			buffer[radius + 1][radius - i] = s[i];
-		}
-		
-	}
-}
-
-/*****main******/
-int main(int argc, char** argv){
+int main(int argc,char** argv){
 	cin.tie(0);
-	ios::sync_with_stdio(false);
-	freopen("c:\\tmp\\tmp.in", "r", stdin);
+	string s;
 	cin >> s;
-	sol();
+	char map[50][50];
+	for(int i = 0; i < 50; i ++){
+		for(int j = 0; j < 50; j ++){
+			map[i][j] = ' ';
+		}
+	}
+	int len = (s.size() - 2 ) / 3;
+	map[len][0] = s[len];
+	map[len][len] = s[len*2];
+	for(int i = 0; i < len; i ++){
+		map[i][0] = s[i];
+		map[len][i+1] = s[len+i];
+		map[len - i][len] = s[len*2+i];
+	}
+	for(int i = 0; i <= len; i ++){
+		for(int j = 0; j <= len; j ++){
+			cout << map[i][j];
+		}
+		cout << endl;
+	}
 
 	return 0;
 }
-

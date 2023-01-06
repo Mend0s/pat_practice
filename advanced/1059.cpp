@@ -1,49 +1,71 @@
-/*****Code By Cheems*****/
+/**
+ *
+ *Filename: 1059.cpp
+ *created in 2023/01/07 00:57:07
+ *By tabbleman
+ *
+ */
 #include <bits/stdc++.h>
-/**********-_-***********/
 using namespace std;
-const int N = 10010, INF = 0x3f3f3f3f, mod = 1e9 + 7;
-typedef long long ll;
-typedef pair<int, int> PII;
+using ll = long long ;
+int ex[500010];
 
-/*variables*/
-ll cnt[N];
-
-/*functions*/
-bool isPrime(int x){
+inline bool isPrime(ll &x){
 	if(x < 2)return false;
-	for(int i = 2; i <= x / i; i ++){
+	for(ll i = 2; i <= x / i; i ++){
 		if(x % i == 0)return false;
 	}
 	return true;
-	
-}
-/*****main******/
-int main(int argc, char** argv){
-	cin.tie(0);
-	ios::sync_with_stdio(false);
-	freopen("c:\\tmp\\tmp.in", "r", stdin);
-	ll tmp;
-	cin >> tmp;
-	memset(dict, 0, sizeof dict);
-	ll div = 2;
-	while(tmp){
-		if(!isPrime(div)){
-			div++;
-			continue;
-		}
-		else {
-			while(tmp % div == 0){
-				tmp /= div;
-				cnt[div] ++;
-			}
-			
-			div ++;
-		}
-		
-	}
-	
-	
-	return 0;
 }
 
+int main(int argc,char** argv){
+	cin.tie(0);
+	memset(ex, 0, sizeof ex);
+
+	ll n, copy;
+	ll minprime = 2;
+	cin >> n;
+	copy = n;
+	while(n > 1){
+		for(ll i = minprime; i <= n / i; i ++){
+			if(isPrime(i)){
+				minprime = i;
+				while(n % i == 0){
+					ex[minprime] ++;
+					n /= i;
+				}
+
+			}
+		}
+		if(n > 1){
+			ex[n] ++;
+			minprime = n;
+			n /= n;
+		}
+
+	}
+	if(copy == 1) {
+		cout << copy << "=" << 1 << endl;
+		return 0;
+	}
+	cout << copy << "=";
+	for(ll i = 2; i <= minprime; i ++){
+		if(ex[i]){
+			if(i == minprime && ex[i] > 1){
+				cout << i << '^' << ex[i];
+			}
+			else if (i == minprime && ex[i] == 1){
+				cout << i ;
+			}
+			else if(ex[i] == 1){
+				cout << i << '*';
+			}
+			else cout << i << '^' << ex[i] << '*';
+		}
+
+	}
+	cout << endl;
+
+
+	return 0;
+}

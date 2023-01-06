@@ -1,2 +1,6 @@
 .vscode/*
+advanced/.vscode/*
 *.exe
+*.out
+*.swp
+*.bin
